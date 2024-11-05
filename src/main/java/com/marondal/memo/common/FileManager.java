@@ -6,9 +6,13 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.multipart.MultipartFile;
 
 public class FileManager {
+	
+	private static Logger logger = LoggerFactory.getLogger(FileManager.class);
 	
 	// 상수
 	public static final String FILE_UPLOAD_PATH = "D:\\dulumaryT\\web\\20240516\\springProject\\upload\\memo";
@@ -36,6 +40,8 @@ public class FileManager {
 		
 		if(!directory.mkdir()) {
 			// 폴더 생성 실패
+			
+			logger.error("디렉토리 생성 에러! " + directoryPath);
 			return null;
 		}
 		

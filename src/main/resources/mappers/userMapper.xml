@@ -38,6 +38,37 @@
         	`user`
         WHERE 
         	`loginId` = #{loginId}
+        <if test="password != null">
         	AND `password` = #{password}
+        </if>
    </select>
+   
+   
+     <select id="selectUserList" parameterType="map"
+   resultType="com.marondal.memo.user.domain.User">
+   		SELECT 
+   			`id`
+   			, `loginId`
+            , `password`
+            , `name`
+            , `email`
+            , `createdAt`
+            , `updatedAt`
+        FROM 
+        	`user`
+        WHERE 
+        	`loginId` IN <!--  (#{loginId}, )  -->
+        	<foreach collection="loginIdList" item="loginId" separator="," open="(" close=")">
+        		#{loginId}
+        	</foreach>
+        
+   </select>
+   
+   
+   
+   
+   
+   
+   
+   
 </mapper>

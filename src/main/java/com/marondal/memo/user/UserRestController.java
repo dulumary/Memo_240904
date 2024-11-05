@@ -3,6 +3,7 @@ package com.marondal.memo.user;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -13,9 +14,12 @@ import com.marondal.memo.user.service.UserService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.Size;
 
 @RestController
 @RequestMapping("/user")
+@Validated
 public class UserRestController {
 	
 	private UserService userService;
@@ -27,10 +31,10 @@ public class UserRestController {
 	
 	@PostMapping("/join")
 	public Map<String, String> join(
-			@RequestParam("loginId") String loginId
+			@Size(min=4, max=8, message="아이디 길이를 확인하세요") @RequestParam("loginId") String loginId
 			, @RequestParam("password") String password
 			, @RequestParam("name") String name
-			, @RequestParam("email") String email) {
+			, @Email(message="이메일 형식이 맞지 않습니다") @RequestParam("email") String email) {
 		
 		
 		int count = userService.addUser(loginId, password, name, email);

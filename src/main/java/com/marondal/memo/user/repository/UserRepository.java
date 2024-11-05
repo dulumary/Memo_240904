@@ -1,5 +1,7 @@
 package com.marondal.memo.user.repository;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -17,5 +19,8 @@ public interface UserRepository {
 	public User selectUser(
 			@Param("loginId") String loginId
 			, @Param("password") String password);
+	
+	public List<User> selectUserList(
+			@Param("loginIdList") List<String> loginIdList);
 
 }
